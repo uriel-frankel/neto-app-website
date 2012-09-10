@@ -47,16 +47,9 @@ public class TestGAEServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		StringBuffer jb = new StringBuffer();
-		  String line = null;
+		String jsonAsString = req.getParameter("json");
 		  try {
-		    BufferedReader reader = req.getReader();
-		    while ((line = reader.readLine()) != null)
-		      jb.append(line);
-		  } catch (Exception e) { /*report an error*/ }
-
-		  try {
-		    UserInfo userInfo = requestToUserInfoObject(jb);
+		    UserInfo userInfo = requestToUserInfoObject(jsonAsString);
 		    Objectify ofy = ObjectifyService.begin();
 		    ofy.put(userInfo);
 		  } catch (Exception e) {
@@ -69,8 +62,8 @@ public class TestGAEServlet extends HttpServlet {
 	}
 
 
-	private UserInfo requestToUserInfoObject(StringBuffer jb) throws JSONException {
-		JSONObject jsonObject = new JSONObject(jb.toString());
+	private UserInfo requestToUserInfoObject(String jsonAsString) throws JSONException {
+		JSONObject jsonObject = new JSONObject(jsonAsString);
 		UserInfo userInfo = new UserInfo();
 		
 		userInfo.salary = Integer.parseInt(jsonObject.getString("salary"));

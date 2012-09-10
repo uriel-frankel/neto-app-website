@@ -6,7 +6,14 @@
 
 <head>
 <title>סקר השכר של מחשבון הנטו</title>
-
+<style type="text/css">
+td 
+{
+	width: 150px;
+	height: 50px; 
+	text-align: center;
+}
+</style>
 </head>
 
 <body style="padding: 0; margin: 0; border: none; min-width:800px;">
@@ -33,6 +40,7 @@
 			boolean grey = false;
 			for (UserInfo userInfo : query) {
 				if(grey){
+					grey = false;
 		%>
 		<tr style="background: aqua;">
 			<td><%=userInfo.seniority%></td>
@@ -43,6 +51,7 @@
 		</tr>
 		<%
 				}else{
+					grey = true;
 					%>
 					<tr style="background:white;">
 						<td><%=userInfo.seniority%></td>
